@@ -1,0 +1,11 @@
+#SPDX-License-Identifier: MIT-0
+---
+- name: Ensure SSH configuration options are set
+  ansible.builtin.lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: "^{{ item.name }} "
+    line: "{{ item.name }} {{ item.value }}"
+    state: present
+    backup: yes
+  loop: "{{ ssh_options }}"
+  notify: Restart SSHD

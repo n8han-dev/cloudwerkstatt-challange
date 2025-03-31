@@ -1,0 +1,9 @@
+#SPDX-License-Identifier: MIT-0
+---
+ssh_options:
+  - name: "PasswordAuthentication"
+    value: "yes"
+  - name: "PermitEmptyPasswords"
+    value: "no"
+  - name: "PermitRootLogin"
+    value: "no"

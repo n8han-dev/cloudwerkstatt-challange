@@ -1,0 +1,15 @@
+---
+
+users:
+  - name: local_adm
+    shell: /bin/bash
+    userid: 38000087
+    expiry_date: -1
+    home: /home/local_adm
+    groups: ["local_adm"]
+  - name: local_log
+    shell: /bin/sh
+    userid: 38000088
+    expiry_date: "2025-12-31"
+    home: /home/local_log
+    groups: ["local_log"]
