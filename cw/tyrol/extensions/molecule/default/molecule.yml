@@ -3,14 +3,15 @@ dependency:
   name: galaxy
 
 driver:
-  name: docker
+  name: default
 platforms:
-  - name: instance
-    image: "alpine/ansible"
-    privileged: true
-    pre_build_image: true
+  - name: localhost
+    groups: [test_local]
 
 provisioner:
   name: ansible
   playbooks:
     converge: converge.yml
+  env:
+    ANSIBLE_ROLES_PATH: "../../../roles"
+  

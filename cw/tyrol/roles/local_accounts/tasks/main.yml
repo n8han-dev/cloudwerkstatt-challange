@@ -45,4 +45,3 @@
     vars_from: main
     tasks_from: config_sshd
   when: item.ssh_key | length > 0
-  notify: Restart SSHD
