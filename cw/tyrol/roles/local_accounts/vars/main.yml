@@ -7,9 +7,17 @@ users:
     expiry_date: -1
     home: /home/local_adm
     groups: ["local_adm"]
+    primary_group: "local_adm"
+    ssh_key: "{{ encrypted_ssh_keys['local_adm'] | default('') }}"
   - name: local_log
     shell: /bin/sh
     userid: 38000088
     expiry_date: "2025-12-31"
     home: /home/local_log
     groups: ["local_log"]
+    primary_group: "local_log"
+    ssh_key: "{{ encrypted_ssh_keys['local_log'] | default('') }}"
+
+ssh_options:
+  - name: "PubkeyAuthentication"
+    value: "yes"

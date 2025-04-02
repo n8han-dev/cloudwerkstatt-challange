@@ -1,0 +1,6 @@
+[local]
+local1 ansible_host=localhost
+
+[vms]
+vm1 ansible_host=192.168.1.20
+vm2 ansible_host=192.168.1.22

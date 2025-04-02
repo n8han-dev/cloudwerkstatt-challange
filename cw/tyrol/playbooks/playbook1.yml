@@ -1,0 +1,12 @@
+---
+- name: create users
+  hosts: vms
+  become: true
+  roles:
+    - local_accounts
+
+- name: configure ssh
+  hosts: vms
+  become: true
+  roles:
+    - ssh_config

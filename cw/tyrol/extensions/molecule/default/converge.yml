@@ -1,0 +1,11 @@
+---
+- name: Converge
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: test local_accounts
+      ansible.builtin.include_role:
+        name: tyrol.local_accounts
+    - name: test ssh_config
+      ansible.builtin.include_role:
+        name: tyrol.ssh_config

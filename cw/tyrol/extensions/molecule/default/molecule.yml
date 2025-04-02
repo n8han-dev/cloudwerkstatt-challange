@@ -1,0 +1,16 @@
+---
+dependency:
+  name: galaxy
+
+driver:
+  name: docker
+platforms:
+  - name: instance
+    image: "alpine/ansible"
+    privileged: true
+    pre_build_image: true
+
+provisioner:
+  name: ansible
+  playbooks:
+    converge: converge.yml

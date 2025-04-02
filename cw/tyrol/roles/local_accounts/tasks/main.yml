@@ -1,12 +1,12 @@
 ---
-- name: Ensure groups are present
+- name: ensure groups are present
   ansible.builtin.group:
     name: "{{ item }}"
     state: present
   loop: "{{ users | map(attribute='groups') | flatten | unique }}"
   # in case we'll have more groups for users
 
-- name: Create user accounts
+- name: create user accounts
   ansible.builtin.user:
     name: "{{ item.name }}"
     uid: "{{ item.uid }}"
@@ -18,3 +18,31 @@
     password_expire: yes
     expires: "{{ (item.expiry | to_datetime('%Y-%m-%d')).timestamp() | int }}"
   loop: "{{ users }}"
+
+- name: ensure .ssh exists
+  ansible.builtin.file:
+    path: "{{ item.home }}/.ssh"
+    state: directory
+    owner: "{{ item.name }}"
+    group: "{{ item.primary_group }}"
+    mode: '0700'
+  when: item.ssh_key | length > 0
+  loop: "{{ users }}"
+
+- name: add ssh key to users
+  ansible.builtin.copy:
+    content: "{{ item.ssh_key }}"
+    dest: "{{ item.home }}/.ssh/authorized_keys"
+    owner: "{{ item.name }}"
+    group: "{{ item.primary_group }}"
+    mode: '0600'
+  when: item.ssh_key | length > 0
+  loop: "{{ users }}"
+
+- name: modify /etc/ssh/sshd_conf
+  ansible.builtin.include_role:
+    name: ssh_config
+    vars_from: main
+    tasks_from: config_sshd
+  when: item.ssh_key | length > 0
+  notify: Restart SSHD
