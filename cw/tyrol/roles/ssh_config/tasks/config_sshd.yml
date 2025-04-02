@@ -9,3 +9,4 @@
     backup: yes
   loop: "{{ ssh_options }}"
   notify: Restart SSHD
+  check_mode: false
